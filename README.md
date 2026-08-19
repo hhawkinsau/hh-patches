@@ -71,9 +71,9 @@ For GitHub Actions, add the same PAT as a `GPR_KEY` repository secret.
 
 ### `INSTALL_FAILED_NO_MATCHING_ABIS`
 
-APKPure packages for these versions are 32-bit (`armeabi-v7a`) only. A 64-bit-only device will refuse to install them.
+APKPure's Punge 3.1.4 package is 32-bit (`armeabi-v7a`) only. A 64-bit-only device will refuse to install it. SafePix 1.1.5 from APKPure includes `arm64-v8a`.
 
-Install from Play Store (or export that install) so the package includes `arm64-v8a`, then patch that.
+For Punge, install from Play Store (or export that install) so the package includes `arm64-v8a`, then patch that.
 
 Leave **Optimize for device architecture** off unless the input already has `config.arm64_v8a`.
 
