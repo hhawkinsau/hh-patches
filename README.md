@@ -18,23 +18,7 @@ Or add this repository URL as a patch source in Morphe:
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.1](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;5 patches total
-<details open>
-<summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
-<br>
-
-**🎯 Supported versions:**
-
-| 3.1.4 |
-| :---: |
-
-| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
-|----------|----------------|-----------|
-| [Custom app name for Punge](#custom-app-name-for-punge) | Changes the Punge launcher name to the name specified in patch options. | • App name |
-| [Disable analytics for Punge](#disable-analytics-for-punge) | Disables Firebase Analytics, Crashlytics, and advertising-ID collection. | • Remove INTERNET permission |
-
-</details>
-
+> **[v1.2.1](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total <!-- pragma: allowlist secret -->
 <details open>
 <summary>📦 SafePix&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
 <br>
@@ -46,9 +30,27 @@ Or add this repository URL as a patch source in Morphe:
 
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
-| [Custom app name for SafePix](#custom-app-name-for-safepix) | Changes the SafePix launcher name to the name specified in patch options. | • App name |
 | [Disable Play Store redirect](#disable-play-store-redirect) | Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play. |  |
 | [Disable analytics for SafePix](#disable-analytics-for-safepix) | Disables Firebase Analytics and advertising-ID collection. | • Remove INTERNET permission |
+| [Skip RevenueCat startup for SafePix](#skip-revenuecat-startup-for-safepix) | Skips RevenueCat configure on launch so local detection works offline. Does not unlock SafePix Pro. | • Allow restore purchases |
+
+</details>
+
+<details open>
+<summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;4 patches</summary>
+<br>
+
+**🎯 Supported versions:**
+
+| 3.1.4 |
+| :---: |
+
+| 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
+|----------|----------------|-----------|
+| [Disable Play Store redirect for Punge](#disable-play-store-redirect-for-punge) | Stops Punge from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play. |  |
+| [Disable analytics for Punge](#disable-analytics-for-punge) | Disables Firebase Analytics, Crashlytics, and advertising-ID collection. | • Remove INTERNET permission |
+| [Disable remote config for Punge](#disable-remote-config-for-punge) | Stops Firebase Remote Config fetches and Play Measurement so feature flags cannot be changed after install. |  |
+| [Hide ads for Punge](#hide-ads-for-punge) | Stops AdMob banners and interstitials from loading or showing. |  |
 
 </details>
 
@@ -71,9 +73,9 @@ For GitHub Actions, add the same PAT as a `GPR_KEY` repository secret.
 
 ### `INSTALL_FAILED_NO_MATCHING_ABIS`
 
-APKPure packages for these versions are 32-bit (`armeabi-v7a`) only. A 64-bit-only device will refuse to install them.
+APKPure's Punge 3.1.4 package is 32-bit (`armeabi-v7a`) only. A 64-bit-only device will refuse to install it. SafePix 1.1.5 from APKPure includes `arm64-v8a`.
 
-Install from Play Store (or export that install) so the package includes `arm64-v8a`, then patch that.
+For Punge, install from Play Store (or export that install) so the package includes `arm64-v8a`, then patch that.
 
 Leave **Optimize for device architecture** off unless the input already has `config.arm64_v8a`.
 
