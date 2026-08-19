@@ -18,9 +18,9 @@ Or add this repository URL as a patch source in Morphe:
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.1](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;7 patches total <!-- pragma: allowlist secret -->
+> **[v1.2.1](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;9 patches total <!-- pragma: allowlist secret -->
 <details open>
-<summary>📦 SafePix&nbsp;&nbsp;•&nbsp;&nbsp;3 patches</summary>
+<summary>📦 SafePix&nbsp;&nbsp;•&nbsp;&nbsp;4 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -32,12 +32,13 @@ Or add this repository URL as a patch source in Morphe:
 |----------|----------------|-----------|
 | [Disable Play Store redirect](#disable-play-store-redirect) | Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play. |  |
 | [Disable analytics for SafePix](#disable-analytics-for-safepix) | Disables Firebase Analytics and advertising-ID collection. | • Remove INTERNET permission |
-| [Skip RevenueCat startup for SafePix](#skip-revenuecat-startup-for-safepix) | Skips RevenueCat configure on launch so local detection works offline. Does not unlock SafePix Pro. | • Allow restore purchases |
+| [Skip RevenueCat startup for SafePix](#skip-revenuecat-startup-for-safepix) | Skips RevenueCat configure on launch so local detection works offline. Do not combine with Unlock SafePix Pro, which needs CustomerInfo. | • Allow restore purchases |
+| [Unlock SafePix Pro](#unlock-safepix-pro) | Unlocks SafePix Pro by making RevenueCat report an active premium entitlement. |  |
 
 </details>
 
 <details open>
-<summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;4 patches</summary>
+<summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;5 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -51,6 +52,7 @@ Or add this repository URL as a patch source in Morphe:
 | [Disable analytics for Punge](#disable-analytics-for-punge) | Disables Firebase Analytics, Crashlytics, and advertising-ID collection. | • Remove INTERNET permission |
 | [Disable remote config for Punge](#disable-remote-config-for-punge) | Stops Firebase Remote Config fetches and Play Measurement so feature flags cannot be changed after install. |  |
 | [Hide ads for Punge](#hide-ads-for-punge) | Stops AdMob banners and interstitials from loading or showing. |  |
+| [Unlock Punge premium](#unlock-punge-premium) | Unlocks Punge's paid feature gates by making RevenueCat report an active entitlement. |  |
 
 </details>
 
