@@ -2,7 +2,7 @@
 
 Custom patches compatible with [Morphe](https://morphe.software).
 
-These patches change the launcher name of:
+These patches change the launcher name and turn off analytics collection flags for:
 
 - **SafePix** (`com.nubestour.safepix`) 1.1.5
 - **Punge** (`com.markatlarge.scrub`) 3.1.4
@@ -68,7 +68,8 @@ For GitHub Actions, add the same PAT as a `GPR_KEY` repository secret.
 - The built patches `.mpp` file is found in `patches/build/libs/patches-*.mpp`
 - Apply the bundle with [Morphe Manager](https://morphe.software) or [Morphe Desktop](https://github.com/MorpheApp/morphe-desktop)
 
-Each patch has an **App name** option in Morphe Manager (defaults: `SafePix HH` and `Punge HH`).
+Each app-name patch has an **App name** option in Morphe Manager (defaults: `SafePix HH` and `Punge HH`).
+The analytics patches are on by default. They have a **Remove INTERNET permission** option that stays off unless you want to block all network access.
 
 ## License
 
