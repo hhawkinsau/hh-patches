@@ -74,8 +74,9 @@ internal fun MutableMethod.succeedLastCallbackAndReturn(): Boolean {
     addInstructions(
         0,
         """
-            const/4 v0, 0x0
-            $invoke { p$register, v0 }, $callbackType->${success.name}(Ljava/lang/Object;)V
+            move-object/from16 v0, p$register
+            const/4 v1, 0x0
+            $invoke { v0, v1 }, $callbackType->${success.name}(Ljava/lang/Object;)V
             return-void
         """.trimIndent(),
     )
