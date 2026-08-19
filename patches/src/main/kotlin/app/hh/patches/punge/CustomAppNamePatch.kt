@@ -10,7 +10,9 @@ private const val DEFAULT_APP_NAME = "Punge HH"
 @Suppress("unused")
 val customAppNamePatch = resourcePatch(
     name = "Custom app name for Punge",
-    description = "Changes the Punge launcher name to the name specified in patch options.",
+    description = "Changes the Punge launcher name to the name specified in patch options. " +
+        "Use an arm64-v8a XAPK on 64-bit devices; APKPure's 3.1.4 bundle is armeabi-v7a only " +
+        "and installs as INSTALL_FAILED_NO_MATCHING_ABIS.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_PUNGE)

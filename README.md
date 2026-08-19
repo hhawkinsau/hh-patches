@@ -71,6 +71,20 @@ For GitHub Actions, add the same PAT as a `GPR_KEY` repository secret.
 Each app-name patch has an **App name** option in Morphe Manager (defaults: `SafePix HH` and `Punge HH`).
 The analytics patches are on by default. They have a **Remove INTERNET permission** option that stays off unless you want to block all network access.
 
+### `INSTALL_FAILED_NO_MATCHING_ABIS` (Punge)
+
+Morphe CLI can patch both apps. The failure happens at **install**, not while applying patches.
+
+APKPure XAPKs for these versions currently ship **only `armeabi-v7a`** (32-bit) native libraries (`libflutter.so`, `libapp.so`, plus ONNX on SafePix and TFLite on Punge). There is **no `arm64-v8a` split**. A 64-bit-only tablet/phone rejects that package with:
+
+`INSTALL_FAILED_NO_MATCHING_ABIS: Failed to extract native libraries, res=-113`
+
+If patched SafePix installed and Punge did not, the Punge file you patched is 32-bit-only and the device cannot run it. Get an **arm64-v8a** Punge package instead:
+
+1. Install Punge from Play Store on the tablet (Play serves the matching ABI).
+2. Export the installed splits (SAI, App Manager, or similar) and patch **that** XAPK/APKS.
+3. In Morphe Manager Expert settings, leave **Optimize for device architecture** off unless the input already contains `config.arm64_v8a`. On a v7a-only XAPK, that option strips all eight Punge `.so` files and leaves a Flutter app with no native libraries.
+
 ## License
 
 HH Patches are licensed under the [GNU General Public License v3.0](LICENSE)
