@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/hhawkinsau/hh-patches/compare/v1.2.0...v1.2.1) (2026-08-19)
+
+### 🐛 Bug Fixes
+
+* Recommend APKS and simplify README ([#6](https://github.com/hhawkinsau/hh-patches/issues/6)) ([fc5bab1](https://github.com/hhawkinsau/hh-patches/commit/fc5bab17c5f6b31d047e3afdd3240624da44d7fd))
+
 ## [1.2.0](https://github.com/hhawkinsau/hh-patches/compare/v1.1.0...v1.2.0) (2026-08-19)
 
 ### 🐛 Bug Fixes

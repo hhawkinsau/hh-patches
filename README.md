@@ -18,7 +18,7 @@ Or add this repository URL as a patch source in Morphe:
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.2.0](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.2.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;5 patches total
+> **[v1.2.1](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.2.1)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;5 patches total
 <details open>
 <summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
