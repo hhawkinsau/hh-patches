@@ -65,7 +65,7 @@ internal fun MutableMethod.returnActiveRevenueCatEntitlements(
             sget-object v14, Lcom/revenuecat/purchases/OwnershipType;->PURCHASED:Lcom/revenuecat/purchases/OwnershipType;
             new-instance v15, Lorg/json/JSONObject;
             invoke-direct { v15 }, Lorg/json/JSONObject;-><init>()V
-            sget-object v16, Lcom/revenuecat/purchases/VerificationResult;->NOT_REQUESTED:Lcom/revenuecat/purchases/VerificationResult;
+            sget-object v16, Lcom/revenuecat/purchases/VerificationResult;->VERIFIED:Lcom/revenuecat/purchases/VerificationResult;
             invoke-direct/range { v0 .. v16 }, Lcom/revenuecat/purchases/EntitlementInfo;-><init>(Ljava/lang/String;ZZLcom/revenuecat/purchases/PeriodType;Ljava/util/Date;Ljava/util/Date;Ljava/util/Date;Lcom/revenuecat/purchases/Store;Ljava/lang/String;Ljava/lang/String;ZLjava/util/Date;Ljava/util/Date;Lcom/revenuecat/purchases/OwnershipType;Lorg/json/JSONObject;Lcom/revenuecat/purchases/VerificationResult;)V
 
             new-instance v1, Ljava/util/HashMap;
@@ -98,6 +98,18 @@ internal fun MutableMethod.returnTrueEarly() {
         """
             const/4 v0, 0x1
             return v0
+        """.trimIndent(),
+    )
+}
+
+context(_: BytecodePatchContext)
+internal fun MutableMethod.returnVerifiedRevenueCatEntitlements() {
+    clearInstructions()
+    addInstructions(
+        0,
+        """
+            sget-object v0, Lcom/revenuecat/purchases/VerificationResult;->VERIFIED:Lcom/revenuecat/purchases/VerificationResult;
+            return-object v0
         """.trimIndent(),
     )
 }
