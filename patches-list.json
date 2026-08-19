@@ -1,0 +1,98 @@
+{
+  "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
+  "version": "1.0.0",
+  "patches": [
+    {
+      "name": "Custom app name for Punge",
+      "description": "Changes the Punge launcher name to the name specified in patch options.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#6C5CE7",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "appName",
+          "title": "App name",
+          "description": "The name shown under the app icon.",
+          "required": true,
+          "type": "kotlin.String",
+          "default": "Punge HH",
+          "values": {
+            "Default": "Punge HH",
+            "Punge": "Punge"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Custom app name for SafePix",
+      "description": "Changes the SafePix launcher name to the name specified in patch options.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.nubestour.safepix",
+          "name": "SafePix",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#00ACC1",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "appName",
+          "title": "App name",
+          "description": "The name shown under the app icon.",
+          "required": true,
+          "type": "kotlin.String",
+          "default": "SafePix HH",
+          "values": {
+            "Default": "SafePix HH",
+            "SafePix": "SafePix"
+          }
+        }
+      ]
+    }
+  ]
+}
