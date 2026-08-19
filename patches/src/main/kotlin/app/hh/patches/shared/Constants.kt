@@ -9,7 +9,8 @@ object Constants {
         name = "SafePix",
         packageName = "com.nubestour.safepix",
         apkFileType = ApkFileType.XAPK,
-        appIconColor = 0x00ACC1,
+        // Shield blue from the SafePix logo (white background ignored).
+        appIconColor = 0x3080F0,
         targets = listOf(
             AppTarget(
                 version = "1.1.5",
@@ -25,7 +26,8 @@ object Constants {
         name = "Punge",
         packageName = "com.markatlarge.scrub",
         apkFileType = ApkFileType.XAPK,
-        appIconColor = 0x6C5CE7,
+        // Magenta/pink field from the Punge logo.
+        appIconColor = 0xD469A5,
         targets = listOf(
             AppTarget(
                 version = "3.1.4",
