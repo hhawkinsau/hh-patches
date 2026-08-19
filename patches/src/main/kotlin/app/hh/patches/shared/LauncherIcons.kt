@@ -4,7 +4,7 @@ import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.ResourcePatchContext
 import org.w3c.dom.Element
 
-private val MIPMAP_DENSITIES = listOf("mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi")
+private val MIPMAP_DENSITIES = listOf("xxxhdpi", "xxhdpi", "xhdpi", "hdpi", "mdpi")
 private val ICON_FILES = listOf(
     "ic_launcher.png",
     "ic_launcher_foreground.png",
@@ -52,11 +52,8 @@ internal fun ResourcePatchContext.replaceLauncherIcons(assetFolder: String) {
                 listOf(res.resolve("mipmap-$density").also { it.mkdirs() })
             }
             dirs.forEach { dir ->
-                val target = dir.resolve(fileName)
-                if (!target.isFile) {
-                    target.writeBytes(bytes)
-                    copied++
-                }
+                dir.resolve(fileName).writeBytes(bytes)
+                copied++
             }
         }
     }
