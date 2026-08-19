@@ -47,7 +47,8 @@ jobs:
           } >> ~/.gradle/gradle.properties
 
       # Semantic release runs its own Gradle build command.
-      # Only dev and main branch will generate a release as specified by .releaserc
+      # Only main (stable) and optional `dev` (prerelease) publish, per .releaserc.
+      # There is no `dev` branch yet, so do not back-merge into it.
       - name: Release
         uses: cycjimmy/semantic-release-action@v6
         id: release
