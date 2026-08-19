@@ -7,6 +7,8 @@ These patches change the launcher name and turn off analytics collection flags f
 - **SafePix** (`com.nubestour.safepix`) 1.1.5
 - **Punge** (`com.markatlarge.scrub`) 3.1.4
 
+SafePix also gets a **Disable Play Store redirect** patch so a sideloaded or Morphe-patched install is not bounced into the Play Store on launch.
+
 Supply the original APK yourself. This repository does not host or redistribute any app.
 
 ### How to use these patches
@@ -20,7 +22,7 @@ Or manually add this repository URL as a patch source in Morphe:
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;2 patches total
+> **[v1.1.0](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.1.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
 <summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
@@ -37,7 +39,7 @@ Or manually add this repository URL as a patch source in Morphe:
 </details>
 
 <details open>
-<summary>📦 SafePix&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
+<summary>📦 SafePix&nbsp;&nbsp;•&nbsp;&nbsp;2 patches</summary>
 <br>
 
 **🎯 Supported versions:**
@@ -48,6 +50,7 @@ Or manually add this repository URL as a patch source in Morphe:
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Custom app name for SafePix](#custom-app-name-for-safepix) | Changes the SafePix launcher name to the name specified in patch options. | • App name |
+| [Disable Play Store redirect](#disable-play-store-redirect) | Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play. |  |
 
 </details>
 
@@ -84,6 +87,7 @@ If patched SafePix installed and Punge did not, the Punge file you patched is 32
 1. Install Punge from Play Store on the tablet (Play serves the matching ABI).
 2. Export the installed splits (SAI, App Manager, or similar) and patch **that** XAPK/APKS.
 3. In Morphe Manager Expert settings, leave **Optimize for device architecture** off unless the input already contains `config.arm64_v8a`. On a v7a-only XAPK, that option strips all eight Punge `.so` files and leaves a Flutter app with no native libraries.
+The custom app name patches have an **App name** option in Morphe Manager (defaults: `SafePix HH` and `Punge HH`).
 
 ## License
 
