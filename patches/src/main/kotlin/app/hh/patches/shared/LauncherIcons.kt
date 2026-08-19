@@ -23,37 +23,40 @@ internal fun ResourcePatchContext.replaceLauncherIcons(assetFolder: String) {
     val res = get("res")
     var copied = 0
 
+    fun bytesFor(density: String, fileName: String): ByteArray? {
+        val source = "icons/$assetFolder/mipmap-$density/$fileName"
+        return classLoader.getResourceAsStream(source)?.use { it.readBytes() }
+    }
+
+    // Replace every existing launcher PNG, including density-split drawables
+    // (Punge keeps the adaptive foreground in drawable-mdpi).
+    res.walkTopDown()
+        .filter { it.isFile && it.name in ICON_FILES }
+        .forEach { file ->
+            val density = MIPMAP_DENSITIES.firstOrNull { file.parentFile.name.contains(it) }
+                ?: return@forEach
+            val bytes = bytesFor(density, file.name) ?: return@forEach
+            file.writeBytes(bytes)
+            copied++
+        }
+
     MIPMAP_DENSITIES.forEach { density ->
-        val sourceDir = "icons/$assetFolder/mipmap-$density"
         val targetDirs = listOf(
             res.resolve("mipmap-$density"),
             res.resolve("mipmap-$density-v4"),
         ).filter { it.isDirectory }
 
         ICON_FILES.forEach { fileName ->
-            val bytes = classLoader.getResourceAsStream("$sourceDir/$fileName")?.use { it.readBytes() }
-                ?: return@forEach
-
-            if (targetDirs.isEmpty()) {
-                val created = res.resolve("mipmap-$density").also { it.mkdirs() }
-                created.resolve(fileName).writeBytes(bytes)
-                copied++
-            } else {
-                targetDirs.forEach { dir ->
-                    dir.resolve(fileName).writeBytes(bytes)
+            val bytes = bytesFor(density, fileName) ?: return@forEach
+            val dirs = targetDirs.ifEmpty {
+                listOf(res.resolve("mipmap-$density").also { it.mkdirs() })
+            }
+            dirs.forEach { dir ->
+                val target = dir.resolve(fileName)
+                if (!target.isFile) {
+                    target.writeBytes(bytes)
                     copied++
                 }
-            }
-        }
-
-        // Density splits sometimes keep the adaptive foreground under drawable.
-        val splitForeground = res.resolve("drawable-$density-v4")
-        if (splitForeground.isDirectory) {
-            classLoader.getResourceAsStream("$sourceDir/ic_launcher_foreground.png")?.use { stream ->
-                splitForeground.resolve("ic_launcher_foreground.png").outputStream().use { out ->
-                    stream.copyTo(out)
-                }
-                copied++
             }
         }
     }
