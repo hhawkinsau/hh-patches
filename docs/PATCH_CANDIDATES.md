@@ -19,25 +19,27 @@ Both are Flutter apps wrapped by Google Play Automatic Integrity Protection (Pai
 
 Ranked by user impact, fit with the privacy / sideload mission, and how much can be done with Morphe resource/bytecode patches (DEX) rather than Dart AOT (`libapp.so`).
 
-### 1. Disable Play Store redirect for Punge
+**Status:** all five are implemented on this branch.
+
+### 1. Disable Play Store redirect for Punge — implemented
 
 **Why first:** Sideloaded / re-signed Punge will hit the same PairIP license wall SafePix already had. The Punge base APK contains `com.pairip.licensecheck.LicenseActivity`, `LicenseClient`, `SignatureCheck`, and `com.android.vending.CHECK_LICENSE`. The Application class is PairIP’s, not Flutter’s.
 
-**How:** Reuse `DisablePlayStoreRedirectPatch` + `spoofPlayStoreInstaller()` against `COMPATIBILITY_PUNGE`. Fingerprints already match the PairIP class names.
+**How:** Shared `disablePairIpPlayStoreRedirect()` plus `spoofPlayStoreInstaller()`, applied as **Disable Play Store redirect for Punge**. SafePix keeps the original patch name **Disable Play Store redirect**.
 
 **Risk:** Low. Same approach as SafePix v1.1.0.
 
-### 2. Hide ads for Punge
+### 2. Hide ads for Punge — implemented
 
 **Why:** Play lists Punge as “Contains ads”. The APK has a real AdMob app id (`ca-app-pub-2625767131604446~4692116258`), `AdActivity`, `MobileAdsInitProvider`, `AdService`, banner + interstitial Dart (`package:expunge/services/admob_service.dart`, `banner_ad_widgets/expunge_banner_ad.dart`), and two unit ids. Interstitials are skipped for some users (`Skipping interstitial: only r…` in `libapp.so`).
 
 **How:**
 - Resource: drop `com.google.android.gms.ads.APPLICATION_ID`, disable ad activities/providers/services, strip AdServices permissions (partially overlaps the analytics patch).
-- Bytecode: no-op `MobileAds.initialize` / Flutter `plugins.flutter.io/google_mobile_ads` so the Dart UI does not sit on a failed load forever.
+- Bytecode: skip `FlutterMobileAdsWrapper.initialize` while still completing Dart’s Future, and no-op `FlutterAdLoader.load*` plus `Flutter*Ad.load()`.
 
-**Risk:** Medium. Resource-only may leave empty banner slots; a method-channel stub is cleaner. This hides ads. It does not unlock paid bulk-manage / unblur (see out of scope).
+**Risk:** Medium. Empty banner slots can remain in the Flutter layout. This hides ads. It does not unlock paid bulk-manage / unblur (see out of scope).
 
-### 3. Disable Firebase Remote Config for Punge
+### 3. Disable Firebase Remote Config for Punge — implemented
 
 **Why:** The current analytics patch turns off collection flags and DataTransport. Punge still ships a live Remote Config stack:
 
@@ -48,19 +50,19 @@ Ranked by user impact, fit with the privacy / sideload mission, and how much can
 
 Remote Config is how Play apps change ad frequency, paywall copy, and feature flags after install. That is a bigger privacy hole than the flags already patched, and it can fight local patches.
 
-**How:** Extend `disableAnalytics()` for Punge: disable `FirebaseInitProvider`, Remote Config / Measurement components, and `firebase_remote_config` method-channel calls. Keep Crashlytics off (already flagged).
+**How:** Stub `FirebaseRemoteConfig.fetchAndActivate` / `activate` / `fetch` with completed Tasks, disable Play Measurement components, and drop Remote Config ComponentDiscovery meta-data. Does **not** disable `FirebaseInitProvider` (that would crash `Firebase.initializeApp()`).
 
-**Risk:** Low–medium. If a scan path waits on fetch-and-activate, default to the in-binary defaults (fail closed / local).
+**Risk:** Low–medium. Scan paths that wait on fetch-and-activate fall back to in-binary defaults.
 
-### 4. Custom launcher icons (SafePix + Punge)
+### 4. Custom launcher icons (SafePix + Punge) — implemented
 
 **Why:** Manager and the device still show the stock icons. Names already have an “HH” option. Icon is the other half of “this is the patched install next to the Play one”.
 
-**How:** Resource patch with a bundled mipmap, or a patch option that tints / badges the existing launcher. `apkFileType` stays `APKS`.
+**How:** Resource patches replace launcher mipmaps with bundled HH badges (`#3080F0` SafePix, `#D469A5` Punge) and fix Punge’s adaptive XML (`foreground` was `@null`, real art lived in the mdpi split).
 
-**Risk:** Low. Need density splits (`config.xxhdpi` / `config.mdpi`) so the icon is not only in `base`.
+**Risk:** Low. Density splits (`config.xxhdpi` / `config.mdpi`) are written when those directories exist in the decoded tree.
 
-### 5. SafePix: skip RevenueCat startup so local mode is actually offline
+### 5. SafePix: skip RevenueCat startup so local mode is actually offline — implemented
 
 **Why:** Listing and in-app copy say 100% offline / no tracking. The APK still:
 
@@ -71,9 +73,9 @@ Remote Config is how Play apps change ad frequency, paywall copy, and feature fl
 
 The existing `removeInternet` option already cuts the network, but then the UI still tries to check a subscription and can stall or error. A dedicated patch should skip RevenueCat init / treat “no network” as “not subscribed”, so gallery + single-image detect keep working.
 
-**How:** Bytecode no-op of `Purchases.configure` / Flutter `purchases_flutter` setup, or a resource flag plus a small Dart-channel stub. Do **not** spoof entitlements (see below).
+**How:** Bytecode completes `PurchasesFlutterPlugin.setupPurchases`’s Flutter result and returns without calling `Purchases.configure`. Does **not** spoof entitlements. Option `allowRestore` (default off) leaves configure in place for Restore Purchases.
 
-**Risk:** Medium. Paying users must still be able to restore if they want Pro; make restore an explicit option, default skip-check-only.
+**Risk:** Medium. Paying users can still restore by enabling the option.
 
 ## Out of scope (present in the binaries, not recommended)
 
@@ -96,8 +98,8 @@ Free Punge still scans the library; the paywall is bulk actions and unblurring l
 
 ## Suggested implementation order
 
-1. Punge PairIP (copy SafePix patch, extend `compatibleWith`)
-2. Punge ads (resource disable + ads channel stub)
-3. Punge Remote Config / remaining Measurement
-4. Custom icons
-5. SafePix RevenueCat skip-check (no entitlement spoof)
+1. Punge PairIP — done (`Disable Play Store redirect for Punge`)
+2. Punge ads — done (`Hide ads for Punge`)
+3. Punge Remote Config / remaining Measurement — done (`Disable remote config for Punge`)
+4. Custom icons — done (`Custom launcher icon for SafePix` / `Custom launcher icon for Punge`)
+5. SafePix RevenueCat skip-check (no entitlement spoof) — done (`Skip RevenueCat startup for SafePix`)

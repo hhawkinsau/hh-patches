@@ -95,6 +95,72 @@
       ]
     },
     {
+      "name": "Custom launcher icon for Punge",
+      "description": "Replaces the Punge launcher icon with the HH badge so the patched install is distinct from the Play Store app.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#D469A5",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Custom launcher icon for SafePix",
+      "description": "Replaces the SafePix launcher icon with the HH badge so the patched install is distinct from the Play Store app.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.nubestour.safepix",
+          "name": "SafePix",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#3080F0",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
       "name": "Disable Play Store redirect",
       "description": "Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play.",
       "default": true,
@@ -110,6 +176,39 @@
           "targets": [
             {
               "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Disable Play Store redirect for Punge",
+      "description": "Stops Punge from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#D469A5",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
@@ -206,6 +305,119 @@
           "key": "removeInternet",
           "title": "Remove INTERNET permission",
           "description": "Also strip INTERNET and related network permissions. This enforces the offline claim, but breaks the Network Images URL scanner and any Play Billing callbacks.",
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        }
+      ]
+    },
+    {
+      "name": "Disable remote config for Punge",
+      "description": "Stops Firebase Remote Config fetches and Play Measurement so feature flags cannot be changed after install.",
+      "default": true,
+      "dependencies": [
+        "ResourcePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#D469A5",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Hide ads for Punge",
+      "description": "Stops AdMob banners and interstitials from loading or showing.",
+      "default": true,
+      "dependencies": [
+        "ResourcePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#D469A5",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Skip RevenueCat startup for SafePix",
+      "description": "Skips RevenueCat configure on launch so local detection works offline. Does not unlock SafePix Pro.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.nubestour.safepix",
+          "name": "SafePix",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#3080F0",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "allowRestore",
+          "title": "Allow restore purchases",
+          "description": "Leave RevenueCat configure in place so Restore Purchases still works. Off by default so launch does not wait on the network.",
           "required": false,
           "type": "kotlin.Boolean",
           "default": false,

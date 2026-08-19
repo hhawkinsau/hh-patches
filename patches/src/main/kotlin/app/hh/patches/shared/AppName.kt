@@ -4,7 +4,6 @@ import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.ResourcePatchContext
 import org.w3c.dom.Element
 
-private val ANDROID_NS = "http://schemas.android.com/apk/res/android"
 private val APP_NAME_STRINGS = setOf("app_name", "appName", "application_name")
 
 /**
@@ -60,9 +59,5 @@ private fun Element.getLabel(): String {
 }
 
 private fun Element.setLabel(value: String) {
-    if (hasAttributeNS(ANDROID_NS, "label")) {
-        setAttributeNS(ANDROID_NS, "android:label", value)
-    } else {
-        setAttribute("android:label", value)
-    }
+    setAndroidAttr("label", value)
 }

@@ -1,28 +1,24 @@
-package app.hh.patches.safepix
+package app.hh.patches.punge
 
-import app.hh.patches.shared.Constants.COMPATIBILITY_SAFEPIX
+import app.hh.patches.shared.Constants.COMPATIBILITY_PUNGE
 import app.hh.patches.shared.disablePairIpPlayStoreRedirect
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.bytecodePatch
 
-/**
- * Google Play "Automatic Integrity Protection" (PairIP) is what bounces a
- * sideloaded / re-signed SafePix install straight into the Play Store.
- */
 @Suppress("unused")
 val disablePlayStoreRedirectPatch = bytecodePatch(
-    name = "Disable Play Store redirect",
-    description = "Stops SafePix from opening the Play Store on launch when the " +
+    name = "Disable Play Store redirect for Punge",
+    description = "Stops Punge from opening the Play Store on launch when the " +
         "app was sideloaded or patched instead of installed from Play.",
     default = true,
 ) {
-    compatibleWith(COMPATIBILITY_SAFEPIX)
+    compatibleWith(COMPATIBILITY_PUNGE)
 
     execute {
         val patched = disablePairIpPlayStoreRedirect()
         if (patched == 0) {
             throw PatchException(
-                "Could not find SafePix's Play Store redirect (PairIP license check " +
+                "Could not find Punge's Play Store redirect (PairIP license check " +
                     "or installer-source check). The app may have changed; no changes applied.",
             )
         }
