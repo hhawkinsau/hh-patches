@@ -30,14 +30,6 @@ private val INTERNET_PERMISSIONS = setOf(
     "android.permission.ACCESS_WIFI_STATE",
 )
 
-private val FIREBASE_TRANSPORT_COMPONENTS = setOf(
-    "com.google.android.datatransport.runtime.backends.TransportBackendDiscovery",
-    "com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService",
-    "com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver",
-    "com.google.firebase.sessions.SessionLifecycleService",
-    "com.google.firebase.iid.FirebaseInstanceIdReceiver",
-)
-
 internal val FIREBASE_MEASUREMENT_COMPONENTS = setOf(
     "com.google.android.gms.measurement.AppMeasurementService",
     "com.google.android.gms.measurement.AppMeasurementJobService",
@@ -51,8 +43,8 @@ private val REMOTE_CONFIG_META = mapOf(
 
 /**
  * Turns off common Firebase / Google Analytics collection flags, advertising-ID
- * permissions, and DataTransport senders. Optionally also strips INTERNET so the
- * app cannot phone home at all.
+ * permissions. Optionally also strips INTERNET so the app cannot phone home at
+ * all.
  *
  * Photo/video scan payloads are not touched. This only blocks the telemetry and
  * ad-ID channels that both store listings contradict with "no tracking" claims.
@@ -66,10 +58,9 @@ internal fun ResourcePatchContext.disableAnalytics(removeInternet: Boolean) {
             application.setMetaData(name, value)
         }
 
-        FIREBASE_TRANSPORT_COMPONENTS.forEach { componentName ->
-            application.disableComponent(componentName)
-        }
-
+        // Keep DataTransport, Firebase Sessions, and Firebase IID components
+        // registered. Other bundled SDKs initialize through these components;
+        // disabling them can leave Flutter waiting indefinitely at its splash.
         val permissions = AD_ID_PERMISSIONS.toMutableSet()
         if (removeInternet) {
             permissions += INTERNET_PERMISSIONS
