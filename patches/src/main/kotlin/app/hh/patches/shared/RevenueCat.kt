@@ -28,6 +28,7 @@ internal fun MutableMethod.returnActiveRevenueCatEntitlements(
     // v0..v16 are used by EntitlementInfo's 17-register constructor call.
     // Keep the non-static p0 parameter outside that range at v17.
     ensureRegisters(18)
+    clearInstructions()
 
     val mapEntries = entitlementIds.distinct().joinToString("\n") { entitlementId ->
         """
@@ -77,6 +78,7 @@ internal fun MutableMethod.returnActiveRevenueCatEntitlements(
 
 context(_: BytecodePatchContext)
 internal fun MutableMethod.returnPurchasedProduct(productId: String) {
+    clearInstructions()
     addInstructions(
         0,
         """
@@ -90,6 +92,7 @@ internal fun MutableMethod.returnPurchasedProduct(productId: String) {
 
 context(_: BytecodePatchContext)
 internal fun MutableMethod.returnTrueEarly() {
+    clearInstructions()
     addInstructions(
         0,
         """
@@ -111,4 +114,12 @@ private fun MutableMethod.ensureRegisters(needed: Int) {
         )
 
     registerCountField.setInt(implementation, needed)
+}
+
+private fun MutableMethod.clearInstructions() {
+    val implementation = implementation
+        ?: throw PatchException("RevenueCat method has no implementation.")
+    repeat(implementation.instructions.count()) {
+        implementation.removeInstruction(0)
+    }
 }
