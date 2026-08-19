@@ -55,13 +55,11 @@ val hideAdsPatch = bytecodePatch(
         }
 
         FlutterAdLoaderLoadFingerprint.matchAllOrNull()?.forEach { match ->
-            match.method.returnVoidEarly()
-            patched++
+            if (match.method.returnVoidEarly()) patched++
         }
 
         FlutterAdLoadFingerprint.matchAllOrNull()?.forEach { match ->
-            match.method.returnVoidEarly()
-            patched++
+            if (match.method.returnVoidEarly()) patched++
         }
 
         if (patched == 0) {
@@ -89,6 +87,7 @@ private object FlutterAdLoadFingerprint : Fingerprint(
             method.name == "load" &&
             method.returnType == "V" &&
             method.parameterTypes.isEmpty() &&
+            method.implementation != null &&
             !AccessFlags.STATIC.isSet(method.accessFlags)
     },
 )

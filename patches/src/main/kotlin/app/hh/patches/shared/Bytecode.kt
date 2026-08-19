@@ -11,22 +11,21 @@ import com.android.tools.smali.dexlib2.iface.ClassDef
 context(_: BytecodePatchContext)
 internal fun Fingerprint.returnVoidEarly(): Boolean {
     val method = methodOrNull ?: return false
-    method.returnVoidEarly()
-    return true
+    return method.returnVoidEarly()
 }
 
-internal fun MutableMethod.returnVoidEarly() {
-    check(returnType.startsWith("V")) {
-        "Cannot return-void from $this (return type $returnType)"
-    }
+internal fun MutableMethod.returnVoidEarly(): Boolean {
+    if (!returnType.startsWith("V") || implementation == null) return false
     addInstruction(0, "return-void")
+    return true
 }
 
 /**
  * Replaces a `Task`-returning Firebase/GMS method with `Tasks.forResult(...)`
  * so Flutter callbacks complete immediately without hitting the network.
  */
-internal fun MutableMethod.returnCompletedTask(booleanFalse: Boolean = false) {
+internal fun MutableMethod.returnCompletedTask(booleanFalse: Boolean = false): Boolean {
+    if (!returnType.contains("Task") || implementation == null) return false
     val body = if (booleanFalse) {
         """
             const/4 v0, 0x0
@@ -45,6 +44,7 @@ internal fun MutableMethod.returnCompletedTask(booleanFalse: Boolean = false) {
         """
     }
     addInstructions(0, body.trimIndent())
+    return true
 }
 
 /**
@@ -54,7 +54,7 @@ internal fun MutableMethod.returnCompletedTask(booleanFalse: Boolean = false) {
 context(bytecodeContext: BytecodePatchContext)
 internal fun MutableMethod.succeedLastCallbackAndReturn(): Boolean {
     val params = parameterTypes.map { it.toString() }
-    if (params.isEmpty()) return false
+    if (params.isEmpty() || implementation == null) return false
 
     val callbackType = params.last()
     val callbackClass = bytecodeContext.classDefByOrNull(callbackType) ?: return false
@@ -101,9 +101,7 @@ private fun ClassDef.findSuccessMethod() = methods
 context(_: BytecodePatchContext)
 internal fun Fingerprint.returnCompletedTask(booleanFalse: Boolean = false): Boolean {
     val method = methodOrNull ?: return false
-    if (!method.returnType.contains("Task")) return false
-    method.returnCompletedTask(booleanFalse)
-    return true
+    return method.returnCompletedTask(booleanFalse)
 }
 
 context(_: BytecodePatchContext)

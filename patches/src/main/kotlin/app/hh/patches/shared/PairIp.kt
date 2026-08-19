@@ -39,8 +39,7 @@ internal fun disablePairIpPlayStoreRedirect(): Int {
     if (SignatureCheckFingerprint.returnVoidEarly()) patched++
 
     OpenPlayStoreFingerprint.matchAllOrNull()?.forEach { match ->
-        match.method.returnVoidEarly()
-        patched++
+        if (match.method.returnVoidEarly()) patched++
     }
 
     if (spoofPlayStoreInstaller()) patched++
