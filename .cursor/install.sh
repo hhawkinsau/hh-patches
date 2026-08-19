@@ -1,12 +1,27 @@
 #!/usr/bin/env bash
 # Idempotent Cloud Agent bootstrap for HH Patches.
 #
-# Resolves the JS release tooling (npm) and the Morphe Gradle toolchain, then
-# compiles the patches so the Gradle/Kotlin caches are warm and the setup is
-# validated end-to-end.
+# Prepares the full patch development + application workflow:
+#   * npm release tooling
+#   * the Morphe Gradle toolchain, then compiles the patches (.mpp)
+#   * the Morphe Desktop CLI (`morphe`) used to apply patches to an APK
+#   * adb (optional companion for installing patched APKs)
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
+
+# Pinned Morphe Desktop (CLI + GUI) release. Override with MORPHE_DESKTOP_VERSION.
+MORPHE_DESKTOP_VERSION="${MORPHE_DESKTOP_VERSION:-1.13.1}"
+MORPHE_HOME="/opt/morphe"
+MORPHE_JAR="${MORPHE_HOME}/morphe-desktop-${MORPHE_DESKTOP_VERSION}-all.jar"
+MORPHE_BIN="/usr/local/bin/morphe"
+
+# Wrap sudo so the script also works where it is unavailable.
+if command -v sudo >/dev/null 2>&1 && sudo -n true >/dev/null 2>&1; then
+  SUDO="sudo"
+else
+  SUDO=""
+fi
 
 # ---------------------------------------------------------------------------
 # GitHub Packages credentials for Gradle.
@@ -53,3 +68,44 @@ npm install
 if [[ "$HAVE_GPR" == "1" ]]; then
   ./gradlew :patches:buildAndroid --no-daemon
 fi
+
+# ---------------------------------------------------------------------------
+# Morphe Desktop CLI. This is the tool that applies the built patches to an
+# APK: `morphe patch -p patches-*.mpp app.apk`. CLI mode runs headless and
+# needs no extra components. Installed as a small `morphe` wrapper on PATH.
+# ---------------------------------------------------------------------------
+if [[ ! -f "$MORPHE_JAR" ]]; then
+  echo "Installing Morphe Desktop CLI v${MORPHE_DESKTOP_VERSION}..."
+  TMP_JAR="$(mktemp)"
+  curl -fsSL --retry 4 --retry-delay 2 -o "$TMP_JAR" \
+    "https://github.com/MorpheApp/morphe-desktop/releases/download/v${MORPHE_DESKTOP_VERSION}/morphe-desktop-${MORPHE_DESKTOP_VERSION}-all.jar"
+  $SUDO mkdir -p "$MORPHE_HOME"
+  $SUDO cp "$TMP_JAR" "$MORPHE_JAR"
+  rm -f "$TMP_JAR"
+else
+  echo "Morphe Desktop CLI v${MORPHE_DESKTOP_VERSION} already present, skipping download."
+fi
+# Ensure the jar is world-readable regardless of install path.
+$SUDO chmod 644 "$MORPHE_JAR"
+
+# (Re)create the `morphe` launcher so it always points at the pinned jar.
+$SUDO tee "$MORPHE_BIN" >/dev/null <<EOF
+#!/usr/bin/env bash
+exec java -jar "${MORPHE_JAR}" "\$@"
+EOF
+$SUDO chmod +x "$MORPHE_BIN"
+
+# ---------------------------------------------------------------------------
+# adb (Android platform tools) - optional companion for installing patched
+# APKs onto a connected device. Best-effort; not fatal if unavailable.
+# ---------------------------------------------------------------------------
+if ! command -v adb >/dev/null 2>&1; then
+  if [[ -n "$SUDO" ]]; then
+    $SUDO apt-get update -y >/dev/null 2>&1 \
+      && $SUDO DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends adb >/dev/null 2>&1 \
+      && echo "Installed adb." \
+      || echo "WARNING: could not install adb (non-fatal)." >&2
+  fi
+fi
+
+echo "Bootstrap complete. Morphe CLI: $(command -v morphe || echo "$MORPHE_BIN")"
