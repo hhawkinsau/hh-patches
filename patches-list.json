@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "patches": [
     {
       "name": "Custom app name for Punge",
@@ -13,7 +13,7 @@
           "name": "Punge",
           "description": null,
           "apkFileType": "XAPK",
-          "appIconColor": "#6C5CE7",
+          "appIconColor": "#D469A5",
           "signatures": null,
           "targets": [
             {
@@ -59,7 +59,7 @@
           "name": "SafePix",
           "description": null,
           "apkFileType": "XAPK",
-          "appIconColor": "#00ACC1",
+          "appIconColor": "#3080F0",
           "signatures": null,
           "targets": [
             {
@@ -105,7 +105,7 @@
           "name": "SafePix",
           "description": null,
           "apkFileType": "XAPK",
-          "appIconColor": "#00ACC1",
+          "appIconColor": "#3080F0",
           "signatures": null,
           "targets": [
             {
@@ -126,6 +126,92 @@
         }
       ],
       "options": []
+    },
+    {
+      "name": "Disable analytics for Punge",
+      "description": "Disables Firebase Analytics, Crashlytics, and advertising-ID collection.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#D469A5",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "removeInternet",
+          "title": "Remove INTERNET permission",
+          "description": "Also strip INTERNET and related network permissions. This blocks ads, analytics, and Crashlytics, but also breaks Play Billing / IAP.",
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        }
+      ]
+    },
+    {
+      "name": "Disable analytics for SafePix",
+      "description": "Disables Firebase Analytics and advertising-ID collection.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.nubestour.safepix",
+          "name": "SafePix",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#3080F0",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": [
+        {
+          "key": "removeInternet",
+          "title": "Remove INTERNET permission",
+          "description": "Also strip INTERNET and related network permissions. This enforces the offline claim, but breaks the Network Images URL scanner and any Play Billing callbacks.",
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        }
+      ]
     }
   ]
 }

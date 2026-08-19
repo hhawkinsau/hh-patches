@@ -1,3 +1,13 @@
+## [1.2.0](https://github.com/hhawkinsau/hh-patches/compare/v1.1.0...v1.2.0) (2026-08-19)
+
+### 🐛 Bug Fixes
+
+* Validate analytics patches and shorten descriptions ([6960d09](https://github.com/hhawkinsau/hh-patches/commit/6960d091d978598e8029ab7529c64c2459a3399a))
+
+### ✨ New Features
+
+* Add analytics patches and logo-based app icon colors ([3a1fc50](https://github.com/hhawkinsau/hh-patches/commit/3a1fc50b311b9557f957e6ce51a9f3768797b8a9))
+
 ## [1.1.0](https://github.com/hhawkinsau/hh-patches/compare/v1.0.0...v1.1.0) (2026-08-19)
 
 ### ✨ New Features
