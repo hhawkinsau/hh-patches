@@ -8,10 +8,7 @@ import app.morphe.patcher.patch.resourcePatch
 @Suppress("unused")
 val disableAnalyticsPatch = resourcePatch(
     name = "Disable analytics for Punge",
-    description = "Turns off Firebase / Google Analytics collection flags, Crashlytics auto-start, " +
-        "and advertising-ID permissions. Punge's listing says media never leaves the device, " +
-        "but Play Data Safety shares purchase history and device IDs with third parties for " +
-        "analytics and ads.",
+    description = "Disables Firebase Analytics, Crashlytics, and advertising-ID collection.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_PUNGE)

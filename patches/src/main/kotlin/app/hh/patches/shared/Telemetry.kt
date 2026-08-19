@@ -24,6 +24,7 @@ private val AD_ID_PERMISSIONS = setOf(
     "com.google.android.gms.permission.AD_ID",
     "android.permission.ACCESS_ADSERVICES_AD_ID",
     "android.permission.ACCESS_ADSERVICES_ATTRIBUTION",
+    "android.permission.ACCESS_ADSERVICES_TOPICS",
     "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
 )
 

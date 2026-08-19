@@ -8,9 +8,7 @@ import app.morphe.patcher.patch.resourcePatch
 @Suppress("unused")
 val disableAnalyticsPatch = resourcePatch(
     name = "Disable analytics for SafePix",
-    description = "Turns off Firebase / Google Analytics collection flags and advertising-ID " +
-        "permissions. SafePix's listing claims no tracking, but Play Data Safety declares " +
-        "name, email, phone, and purchase-history collection for analytics.",
+    description = "Disables Firebase Analytics and advertising-ID collection.",
     default = true,
 ) {
     compatibleWith(COMPATIBILITY_SAFEPIX)
