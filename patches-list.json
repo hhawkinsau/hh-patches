@@ -226,8 +226,8 @@
     },
     {
       "name": "Skip RevenueCat startup for SafePix",
-      "description": "Skips RevenueCat configure on launch so local detection works offline. Does not unlock SafePix Pro.",
-      "default": true,
+      "description": "Skips RevenueCat configure on launch so local detection works offline. Do not combine with Unlock SafePix Pro, which needs CustomerInfo.",
+      "default": false,
       "dependencies": [],
       "compatiblePackages": [
         {
@@ -266,6 +266,72 @@
           "values": null
         }
       ]
+    },
+    {
+      "name": "Unlock Punge premium",
+      "description": "Unlocks Punge's paid feature gates by making RevenueCat report an active entitlement.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.markatlarge.scrub",
+          "name": "Punge",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#D469A5",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "3.1.4",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Unlock SafePix Pro",
+      "description": "Unlocks SafePix Pro by making RevenueCat report an active premium entitlement.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.nubestour.safepix",
+          "name": "SafePix",
+          "description": null,
+          "apkFileType": "APKS",
+          "appIconColor": "#3080F0",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     }
   ]
 }

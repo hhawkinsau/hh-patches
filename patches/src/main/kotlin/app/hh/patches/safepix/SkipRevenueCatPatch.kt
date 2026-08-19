@@ -11,8 +11,8 @@ import app.morphe.patcher.patch.bytecodePatch
 val skipRevenueCatPatch = bytecodePatch(
     name = "Skip RevenueCat startup for SafePix",
     description = "Skips RevenueCat configure on launch so local detection works offline. " +
-        "Does not unlock SafePix Pro.",
-    default = true,
+        "Do not combine with Unlock SafePix Pro, which needs CustomerInfo.",
+    default = false,
 ) {
     compatibleWith(COMPATIBILITY_SAFEPIX)
 
