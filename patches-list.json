@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "patches": [
     {
       "name": "Custom app name for Punge",
@@ -93,6 +93,39 @@
           }
         }
       ]
+    },
+    {
+      "name": "Disable Play Store redirect",
+      "description": "Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.nubestour.safepix",
+          "name": "SafePix",
+          "description": null,
+          "apkFileType": "XAPK",
+          "appIconColor": "#00ACC1",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.1.5",
+              "versionCodes": null,
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": null,
+              "versionCodes": null,
+              "isExperimental": true,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
     }
   ]
 }

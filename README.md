@@ -22,7 +22,7 @@ Or manually add this repository URL as a patch source in Morphe:
 ## 🩹 Patches list
 
 <!-- PATCHES_START EXPANDED -->
-> **[v1.0.0](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.0.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
+> **[v1.1.0](https://github.com/hhawkinsau/hh-patches/releases/tag/v1.1.0)**&nbsp;&nbsp;•&nbsp;&nbsp;`main`&nbsp;&nbsp;•&nbsp;&nbsp;3 patches total
 <details open>
 <summary>📦 Punge&nbsp;&nbsp;•&nbsp;&nbsp;1 patch</summary>
 <br>
@@ -50,7 +50,7 @@ Or manually add this repository URL as a patch source in Morphe:
 | 💊&nbsp;Patch | 📜&nbsp;Description | ⚙️&nbsp;Options |
 |----------|----------------|-----------|
 | [Custom app name for SafePix](#custom-app-name-for-safepix) | Changes the SafePix launcher name to the name specified in patch options. | • App name |
-| [Disable Play Store redirect](#disable-play-store-redirect) | Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play. | |
+| [Disable Play Store redirect](#disable-play-store-redirect) | Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play. |  |
 
 </details>
 
