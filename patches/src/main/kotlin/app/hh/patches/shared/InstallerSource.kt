@@ -14,8 +14,8 @@ private const val PLAY_STORE_PACKAGE = "com.android.vending"
 private const val PACKAGE_SOURCE_STORE = 2
 
 /**
- * Spoofs every in-app read of the install source so SafePix (and similar
- * Play-protected apps) believe they were installed from the Play Store.
+ * Spoofs every in-app read of the install source so Play-protected apps
+ * believe they were installed from the Play Store.
  *
  * Patches the return of:
  * - PackageManager.getInstallerPackageName

@@ -3,39 +3,6 @@
   "version": "1.2.1",
   "patches": [
     {
-      "name": "Disable Play Store redirect",
-      "description": "Stops SafePix from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play.",
-      "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.nubestour.safepix",
-          "name": "SafePix",
-          "description": null,
-          "apkFileType": "APKS",
-          "appIconColor": "#3080F0",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "1.1.5",
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            },
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": true,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
       "name": "Disable Play Store redirect for Punge",
       "description": "Stops Punge from opening the Play Store on launch when the app was sideloaded or patched instead of installed from Play.",
       "default": true,
@@ -139,49 +106,6 @@
       "options": []
     },
     {
-      "name": "Skip RevenueCat startup for SafePix",
-      "description": "Skips RevenueCat configure on launch so local detection works offline. Do not combine with Unlock SafePix Pro, which needs CustomerInfo.",
-      "default": false,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.nubestour.safepix",
-          "name": "SafePix",
-          "description": null,
-          "apkFileType": "APKS",
-          "appIconColor": "#3080F0",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "1.1.5",
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            },
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": true,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": [
-        {
-          "key": "allowRestore",
-          "title": "Allow restore purchases",
-          "description": "Leave RevenueCat configure in place so Restore Purchases still works. Off by default so launch does not wait on the network.",
-          "required": false,
-          "type": "kotlin.Boolean",
-          "default": false,
-          "values": null
-        }
-      ]
-    },
-    {
       "name": "Unlock Punge premium",
       "description": "Unlocks Punge's paid feature gates by making RevenueCat report an active entitlement.",
       "default": true,
@@ -197,39 +121,6 @@
           "targets": [
             {
               "version": "3.1.4",
-              "versionCodes": null,
-              "isExperimental": false,
-              "minSdk": null,
-              "description": null
-            },
-            {
-              "version": null,
-              "versionCodes": null,
-              "isExperimental": true,
-              "minSdk": null,
-              "description": null
-            }
-          ]
-        }
-      ],
-      "options": []
-    },
-    {
-      "name": "Unlock SafePix Pro",
-      "description": "Unlocks SafePix Pro by making RevenueCat report an active premium entitlement.",
-      "default": true,
-      "dependencies": [],
-      "compatiblePackages": [
-        {
-          "packageName": "com.nubestour.safepix",
-          "name": "SafePix",
-          "description": null,
-          "apkFileType": "APKS",
-          "appIconColor": "#3080F0",
-          "signatures": null,
-          "targets": [
-            {
-              "version": "1.1.5",
               "versionCodes": null,
               "isExperimental": false,
               "minSdk": null,
