@@ -8,7 +8,7 @@ object Constants {
     val COMPATIBILITY_SAFEPIX = Compatibility(
         name = "SafePix",
         packageName = "com.nubestour.safepix",
-        apkFileType = ApkFileType.XAPK,
+        apkFileType = ApkFileType.APKS,
         // Shield blue from the SafePix logo (white background ignored).
         appIconColor = 0x3080F0,
         targets = listOf(
@@ -25,7 +25,7 @@ object Constants {
     val COMPATIBILITY_PUNGE = Compatibility(
         name = "Punge",
         packageName = "com.markatlarge.scrub",
-        apkFileType = ApkFileType.XAPK,
+        apkFileType = ApkFileType.APKS,
         // Magenta/pink field from the Punge logo.
         appIconColor = 0xD469A5,
         targets = listOf(

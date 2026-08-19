@@ -2,12 +2,8 @@
 
 Custom patches compatible with [Morphe](https://morphe.software).
 
-These patches change the launcher name and turn off analytics collection flags for:
-
 - **SafePix** (`com.nubestour.safepix`) 1.1.5
 - **Punge** (`com.markatlarge.scrub`) 3.1.4
-
-SafePix also gets a **Disable Play Store redirect** patch so a sideloaded or Morphe-patched install is not bounced into the Play Store on launch.
 
 Supply the original APK yourself. This repository does not host or redistribute any app.
 
@@ -15,7 +11,7 @@ Supply the original APK yourself. This repository does not host or redistribute 
 
 Click here to add these patches to Morphe: https://morphe.software/add-source?github=hhawkinsau/hh-patches
 
-Or manually add this repository URL as a patch source in Morphe:
+Or add this repository URL as a patch source in Morphe:
 
 `https://github.com/hhawkinsau/hh-patches`
 
@@ -70,26 +66,16 @@ gpr.key = YOUR_GITHUB_PAT
 For GitHub Actions, add the same PAT as a `GPR_KEY` repository secret.
 
 - Run `./gradlew buildAndroid`
-- The built patches `.mpp` file is found in `patches/build/libs/patches-*.mpp`
+- The built patches `.mpp` file is in `patches/build/libs/patches-*.mpp`
 - Apply the bundle with [Morphe Manager](https://morphe.software) or [Morphe Desktop](https://github.com/MorpheApp/morphe-desktop)
 
-Each app-name patch has an **App name** option in Morphe Manager (defaults: `SafePix HH` and `Punge HH`).
-The analytics patches are on by default. They have a **Remove INTERNET permission** option that stays off unless you want to block all network access.
+### `INSTALL_FAILED_NO_MATCHING_ABIS`
 
-### `INSTALL_FAILED_NO_MATCHING_ABIS` (Punge)
+APKPure packages for these versions are 32-bit (`armeabi-v7a`) only. A 64-bit-only device will refuse to install them.
 
-Morphe CLI can patch both apps. The failure happens at **install**, not while applying patches.
+Install from Play Store (or export that install) so the package includes `arm64-v8a`, then patch that.
 
-APKPure XAPKs for these versions currently ship **only `armeabi-v7a`** (32-bit) native libraries (`libflutter.so`, `libapp.so`, plus ONNX on SafePix and TFLite on Punge). There is **no `arm64-v8a` split**. A 64-bit-only tablet/phone rejects that package with:
-
-`INSTALL_FAILED_NO_MATCHING_ABIS: Failed to extract native libraries, res=-113`
-
-If patched SafePix installed and Punge did not, the Punge file you patched is 32-bit-only and the device cannot run it. Get an **arm64-v8a** Punge package instead:
-
-1. Install Punge from Play Store on the tablet (Play serves the matching ABI).
-2. Export the installed splits (SAI, App Manager, or similar) and patch **that** XAPK/APKS.
-3. In Morphe Manager Expert settings, leave **Optimize for device architecture** off unless the input already contains `config.arm64_v8a`. On a v7a-only XAPK, that option strips all eight Punge `.so` files and leaves a Flutter app with no native libraries.
-The custom app name patches have an **App name** option in Morphe Manager (defaults: `SafePix HH` and `Punge HH`).
+Leave **Optimize for device architecture** off unless the input already has `config.arm64_v8a`.
 
 ## License
 
