@@ -50,7 +50,7 @@ jobs:
       # Only main (stable) and optional `dev` (prerelease) publish, per .releaserc.
       # There is no `dev` branch yet, so do not back-merge into it.
       - name: Release
-        uses: cycjimmy/semantic-release-action@v6
+        uses: cycjimmy/semantic-release-action@v8
         id: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
